@@ -1,0 +1,16 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.button {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 35.999rem) {
+    .toolbar {
+        gap: 1.2rem;
+    }
+}

@@ -84,8 +84,8 @@ body {
     font-family: var(--font-body);
     font-size: 1.6rem;
     font-optical-sizing: auto;
-    background-color: var(--color-neutral-0);
-    color: var(--color-neutral-900);
+    background-color: var(--color-neutral-900);
+    color: var(--color-neutral-0);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -121,7 +121,6 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-heading);
     line-height: 1.2;
 }
 

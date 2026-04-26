@@ -1,0 +1,72 @@
+.card {
+    position: relative;
+    gap: 2.4rem;
+    min-height: 13.8rem;
+    padding: 2rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.12);
+    border-radius: 2rem;
+    background-color: var(--color-neutral-800);
+    overflow: hidden;
+}
+
+.highlighted {
+    background: linear-gradient(
+        135deg,
+        var(--color-orange-700) 0%,
+        var(--color-orange-400) 100%
+    );
+    border-color: transparent;
+}
+
+.pattern {
+    position: absolute;
+    right: -2rem;
+    bottom: -6.5rem;
+    width: 14rem;
+    height: 14rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.label {
+    font-family: var(--font-body);
+    font-size: 1.6rem;
+    font-weight: semibold;
+    line-height: 140%;
+    letter-spacing: -0.03rem;
+    color: var(--color-neutral-0);
+}
+
+.value {
+    font-family: var(--font-heading);
+    font-size: 4.4rem;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -0.02rem;
+    color: var(--color-neutral-0);
+}
+
+.mutedValue {
+    color: var(--color-neutral-400);
+}
+
+.chartEmpty {
+    display: grid;
+    place-items: center;
+    min-height: 15.2rem;
+    text-align: center;
+}
+
+.chartEmptyText {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-neutral-300);
+}
