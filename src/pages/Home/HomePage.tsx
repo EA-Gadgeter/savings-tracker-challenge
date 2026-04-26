@@ -1,6 +1,6 @@
 import Header from "../../components/common/Header/Header";
 import SummaryCard from "../../components/dashboard/SummaryCard/SummaryCard";
-import { GoalsEmptyState } from "../../components/goals/GoalsEmptyState/GoalsEmptyState";
+import GoalsEmptyState from "../../components/goals/GoalsEmptyState/GoalsEmptyState";
 import { GoalsToolbar } from "../../components/goals/GoalsToolbar/GoalsToolbar";
 import styles from "./HomePage.module.css";
 
