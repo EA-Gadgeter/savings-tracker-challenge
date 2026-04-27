@@ -1,0 +1,200 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.12);
+  border-radius: 2rem;
+  background-color: var(--color-neutral-800);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.withGrid {
+  background-image: url("/assets/images/pattern-grid.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.card:focus-visible {
+  outline: 0.2rem solid var(--color-neutral-0);
+  outline-offset: 0.2rem;
+}
+
+/* --- Variants --- */
+
+.highlight {
+  background: linear-gradient(
+    135deg,
+    var(--color-orange-700) 0%,
+    var(--color-orange-400) 100%
+  );
+  border-color: transparent;
+}
+
+.highlight:hover {
+  border-color: transparent;
+  filter: brightness(1.05);
+}
+
+/* --- Header --- */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02rem;
+  color: var(--color-neutral-0);
+}
+
+/* --- Badge --- */
+
+.badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border: 0.1rem solid var(--color-green-500);
+  border-radius: 999rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-green-500);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* --- Percentage --- */
+
+.percent {
+  font-family: var(--font-heading);
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.percentDefault {
+  color: var(--color-orange-400);
+}
+
+.percentHighlight {
+  color: var(--color-neutral-0);
+}
+
+.percentComplete {
+  color: var(--color-green-500);
+}
+
+.percentNotStarted {
+  color: var(--color-neutral-400);
+}
+
+/* --- Progress track --- */
+
+.progressTrack {
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 999rem;
+  overflow: hidden;
+}
+
+.trackDefault {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.trackHighlight {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* --- Progress fill --- */
+
+.progressFill {
+  height: 100%;
+  border-radius: 999rem;
+  transition: width 0.4s ease;
+  background-image: repeating-linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.15) 0,
+    rgba(255, 255, 255, 0.15) 3px,
+    var(--color-neutral-0) 3px,
+    var(--color-neutral-0) 9px
+  );
+}
+
+.fillDefault {
+  background-image: repeating-linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--color-orange-400), transparent 30%) 0,
+    color-mix(in srgb, var(--color-orange-400), transparent 30%) 3px,
+    var(--color-orange-400) 3px,
+    var(--color-orange-400) 9px
+  );
+}
+
+.fillHighlight {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.fillComplete {
+  background-image: repeating-linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--color-green-500), transparent 30%) 0,
+    color-mix(in srgb, var(--color-green-500), transparent 30%) 3px,
+    var(--color-green-500) 3px,
+    var(--color-green-500) 9px
+  );
+}
+
+.fillNotStarted {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* --- Meta line --- */
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1;
+  flex-wrap: wrap;
+}
+
+.metaDefault {
+  color: var(--color-neutral-300);
+}
+
+.metaHighlight {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.separator {
+  color: var(--color-neutral-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    transition: none;
+  }
+
+  .card {
+    transition: none;
+  }
+}

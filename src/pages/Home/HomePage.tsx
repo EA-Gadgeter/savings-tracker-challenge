@@ -1,6 +1,7 @@
 import Header from "../../components/common/Header/Header";
 import SummaryCard from "../../components/dashboard/SummaryCard/SummaryCard";
 import GoalsEmptyState from "../../components/goals/GoalsEmptyState/GoalsEmptyState";
+import GoalsList from "../../components/goals/GoalsList/GoalsList";
 import { GoalsToolbar } from "../../components/goals/GoalsToolbar/GoalsToolbar";
 import { useGoalsStore } from "../../store/useGoalsStore";
 import styles from "./HomePage.module.css";
@@ -80,7 +81,11 @@ function HomePage(): React.JSX.Element {
             />
           </div>
 
-          <GoalsEmptyState onCreateGoal={handleCreateGoal} />
+          {goals.length === 0 ? (
+            <GoalsEmptyState onCreateGoal={handleCreateGoal} />
+          ) : (
+            <GoalsList goals={goals} />
+          )}
         </section>
       </div>
     </main>
