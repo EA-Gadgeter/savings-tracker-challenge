@@ -1,38 +1,49 @@
 import type { ReactNode } from "react";
 import styles from "./SummaryCard.module.css";
 
-type SummaryCardVariant = "default" | "highlight";
+type SummaryCardVariant = "default" | "muted" | "highlight" | "complete";
 
 interface SummaryCardProps {
   title: string;
   value: string;
-  variant?: SummaryCardVariant;
+  cardVariant?: SummaryCardVariant;
+  valueVariant?: SummaryCardVariant;
   isEmpty?: boolean;
   showPattern?: boolean;
   children?: ReactNode;
 }
 
+const getValueClassName = (variant: SummaryCardVariant): string => {
+  const valueClassNames: Record<SummaryCardVariant, string> = {
+    default: styles.value,
+    muted: styles.mutedValue,
+    highlight: styles.highlightedValue,
+    complete: styles.completedValue,
+  };
+
+  const valueClassName = [styles.value];
+  valueClassName.push(valueClassNames[variant]);
+
+  return valueClassName.join(" ");
+};
+
 function SummaryCard({
   title,
   value,
-  variant = "default",
+  cardVariant = "default",
+  valueVariant = "default",
   isEmpty = false,
   showPattern = false,
   children,
 }: SummaryCardProps): React.JSX.Element {
   const cardClassName = [
     styles.card,
-    variant === "highlight" ? styles.highlighted : "",
+    cardVariant === "highlight" ? styles.highlighted : "",
   ]
     .filter(Boolean)
     .join(" ");
 
-  const valueClassName = [
-    styles.value,
-    variant === "default" ? styles.mutedValue : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const valueClassName = getValueClassName(valueVariant);
 
   return (
     <article className={cardClassName}>

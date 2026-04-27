@@ -2,9 +2,21 @@ import Header from "../../components/common/Header/Header";
 import SummaryCard from "../../components/dashboard/SummaryCard/SummaryCard";
 import GoalsEmptyState from "../../components/goals/GoalsEmptyState/GoalsEmptyState";
 import { GoalsToolbar } from "../../components/goals/GoalsToolbar/GoalsToolbar";
+import { useGoalsStore } from "../../store/useGoalsStore";
 import styles from "./HomePage.module.css";
 
 function HomePage(): React.JSX.Element {
+  const goals = useGoalsStore((state) => state.goals);
+
+  const totalGoals = goals.length;
+  const goalsCompleted = goals.filter((goal) => {
+    const totalDeposit = goal.deposits.reduce(
+      (sum, deposit) => sum + deposit.amount,
+      0,
+    );
+    return totalDeposit >= goal.target;
+  });
+
   const handleCreateGoal = (): void => {
     // TODO: wire create goal flow
   };
@@ -29,12 +41,22 @@ function HomePage(): React.JSX.Element {
           <SummaryCard
             title="Total savings"
             value="$0.00"
-            variant="highlight"
+            cardVariant="highlight"
           />
 
-          <SummaryCard title="Active goals" value="0" showPattern />
+          <SummaryCard
+            title="Active goals"
+            value={totalGoals.toString()}
+            valueVariant="highlight"
+            showPattern
+          />
 
-          <SummaryCard title="Goals completed" value="0" showPattern />
+          <SummaryCard
+            title="Goals completed"
+            value={goalsCompleted.length.toString()}
+            valueVariant="complete"
+            showPattern
+          />
 
           <SummaryCard
             title="Monthly deposits"
