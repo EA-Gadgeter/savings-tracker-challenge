@@ -4,6 +4,7 @@ import GoalsEmptyState from "../../components/goals/GoalsEmptyState/GoalsEmptySt
 import GoalsList from "../../components/goals/GoalsList/GoalsList";
 import { GoalsToolbar } from "../../components/goals/GoalsToolbar/GoalsToolbar";
 import { useGoalsStore } from "../../store/useGoalsStore";
+import { formatCurrency } from "../../utils/formatters";
 import styles from "./HomePage.module.css";
 
 function HomePage(): React.JSX.Element {
@@ -17,17 +18,16 @@ function HomePage(): React.JSX.Element {
     );
     return totalDeposit >= goal.target;
   });
+  const totalSavings = goals.reduce((sum, goal) => {
+    const totalDeposit = goal.deposits.reduce(
+      (goalSum, deposit) => goalSum + deposit.amount,
+      0,
+    );
+    return sum + totalDeposit;
+  }, 0);
 
   const handleCreateGoal = (): void => {
     // TODO: wire create goal flow
-  };
-
-  const handleFilterClick = (): void => {
-    // TODO: wire filters modal/dropdown
-  };
-
-  const handleSortClick = (): void => {
-    // TODO: wire sorting modal/dropdown
   };
 
   return (
@@ -41,7 +41,7 @@ function HomePage(): React.JSX.Element {
         >
           <SummaryCard
             title="Total savings"
-            value="$0.00"
+            value={formatCurrency(totalSavings)}
             cardVariant="highlight"
           />
 
@@ -75,10 +75,7 @@ function HomePage(): React.JSX.Element {
               Your goals
             </h1>
 
-            <GoalsToolbar
-              onFilterClick={handleFilterClick}
-              onSortClick={handleSortClick}
-            />
+            <GoalsToolbar />
           </div>
 
           {goals.length === 0 ? (

@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode;
   variant?: ButtonVariant;
   fullWidth?: boolean;
+  isActive?: boolean;
 }
 
 const variantClassNameMap: Record<ButtonVariant, string> = {
@@ -22,16 +23,16 @@ export function Button({
   type = "button",
   variant = "primary",
   fullWidth = false,
+  isActive = false,
   ...props
 }: ButtonProps) {
   const buttonClassName = [
     styles.button,
     variantClassNameMap[variant],
     fullWidth ? styles.fullWidth : "",
+    isActive ? styles.active : "",
     className ?? "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ].join(" ");
 
   return (
     <button className={buttonClassName} type={type} {...props}>

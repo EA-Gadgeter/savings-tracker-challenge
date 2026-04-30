@@ -1,0 +1,153 @@
+/* ================================
+   MOBILE: bottom sheet modal
+   ================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+}
+
+.panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 41;
+  padding: 2.8rem 2rem 4.8rem;
+  background-color: var(--color-neutral-800);
+  border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem 2rem 0 0;
+}
+
+/* ================================
+   PANEL CONTENT
+   ================================ */
+
+.heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-neutral-400);
+  margin-bottom: 2rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 0;
+  cursor: pointer;
+}
+
+.option:not(:last-child) {
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.06);
+}
+
+/* ================================
+   CUSTOM RADIO BUTTON
+   ================================ */
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.radioCustom {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 0.2rem solid var(--color-neutral-500);
+  border-radius: 50%;
+  transition: border-color 0.15s ease;
+}
+
+.radioCustom::after {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: var(--color-orange-400);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.option:has(.radioInput:checked) .radioCustom {
+  border-color: var(--color-orange-400);
+}
+
+.option:has(.radioInput:checked) .radioCustom::after {
+  transform: scale(1);
+}
+
+.option:has(.radioInput:focus-visible) .radioCustom {
+  outline: 0.2rem solid var(--color-neutral-0);
+  outline-offset: 0.3rem;
+}
+
+.optionText {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-neutral-0);
+}
+
+/* ================================
+   DESKTOP: absolute dropdown
+   ================================ */
+
+@media (min-width: 48em) {
+  .backdrop {
+    display: none;
+  }
+
+  .panel {
+    position: absolute;
+    inset: auto;
+    top: calc(100% + 0.8rem);
+    right: 0;
+    bottom: auto;
+    left: auto;
+    min-width: 26rem;
+    padding: 2rem;
+    border-top: none;
+    border: 0.1rem solid rgba(255, 255, 255, 0.12);
+    border-radius: 1.6rem;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+  }
+
+  .heading {
+    margin-bottom: 1.2rem;
+  }
+
+  .option {
+    padding: 0.8rem 0;
+  }
+
+  .option:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radioCustom,
+  .radioCustom::after {
+    transition: none;
+  }
+}
