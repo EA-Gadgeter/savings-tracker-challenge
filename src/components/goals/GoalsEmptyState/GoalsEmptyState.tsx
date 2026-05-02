@@ -1,13 +1,11 @@
+import { useModal } from "../../../hooks/useModal";
 import { Button } from "../../common/Button/Button";
+import { CreateGoalModal } from "../CreateGoalModal/CreateGoalModal";
 import styles from "./GoalsEmptyState.module.css";
 
-type GoalsEmptyStateProps = {
-  onCreateGoal: () => void;
-};
+export function GoalsEmptyState(): React.JSX.Element {
+  const createGoalModal = useModal();
 
-export function GoalsEmptyState({
-  onCreateGoal,
-}: GoalsEmptyStateProps): React.JSX.Element {
   return (
     <section className={styles.root} aria-labelledby="goals-empty-state-title">
       <div className={styles.iconWrapper} aria-hidden="true">
@@ -33,7 +31,7 @@ export function GoalsEmptyState({
         <Button
           type="button"
           variant="primary"
-          onClick={onCreateGoal}
+          onClick={createGoalModal.toggle}
           icon={
             <img
               src={`${import.meta.env.BASE_URL}assets/images/icon-plus.svg`}
@@ -44,6 +42,10 @@ export function GoalsEmptyState({
         >
           Create your first goal
         </Button>
+
+        {createGoalModal.isOpen && (
+          <CreateGoalModal onClose={createGoalModal.toggle} />
+        )}
       </div>
     </section>
   );
