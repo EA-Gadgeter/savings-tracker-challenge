@@ -1,0 +1,265 @@
+/* ================================
+   BACKDROP
+   ================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+}
+
+/* ================================
+   PANEL — Centered modal (all screen sizes)
+   ================================ */
+
+.panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 41;
+  width: calc(100% - 3.2rem);
+  max-width: 48rem;
+  background-color: var(--color-neutral-800);
+  border-radius: 2rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0.8rem 4rem rgba(0, 0, 0, 0.5);
+  padding: 2.8rem 2rem;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ================================
+   HEADER
+   ================================ */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-0);
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.closeBtn:hover {
+  opacity: 0.7;
+}
+
+.closeBtn:focus-visible {
+  outline: 0.2rem solid var(--color-neutral-0);
+  outline-offset: 0.3rem;
+}
+
+.closeBtn img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* ================================
+   DIVIDER
+   ================================ */
+
+.divider {
+  border: none;
+  border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+  margin: 0 0 2.4rem;
+}
+
+/* ================================
+   FORM LAYOUT
+   ================================ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ================================
+   FIELD GROUP
+   ================================ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-neutral-0);
+}
+
+.optional {
+  color: var(--color-neutral-400);
+  font-weight: 400;
+}
+
+/* ================================
+   STANDALONE INPUT — Goal name
+   ================================ */
+
+.input {
+  width: 100%;
+  background-color: var(--color-neutral-700);
+  border: 0.1rem solid var(--color-neutral-600);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  color: var(--color-neutral-0);
+  font-size: 1.5rem;
+  font-weight: 400;
+  transition: border-color 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--color-neutral-500);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-neutral-400);
+}
+
+.input.inputError {
+  border-color: var(--color-red-500);
+}
+
+.input.inputError:focus {
+  border-color: var(--color-red-500);
+}
+
+/* ================================
+   INPUT WRAPPER — Fields with icon ($, calendar)
+   ================================ */
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background-color: var(--color-neutral-700);
+  border: 0.1rem solid var(--color-neutral-600);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  transition: border-color 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-neutral-400);
+}
+
+.inputWrapper.inputWrapperError {
+  border-color: var(--color-red-500);
+}
+
+.inputWrapper.inputWrapperError:focus-within {
+  border-color: var(--color-red-500);
+}
+
+.inputIcon {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  opacity: 0.6;
+}
+
+/* The actual <input> inside the wrapper */
+.inputInner {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--color-neutral-0);
+  font-size: 1.5rem;
+  font-weight: 400;
+  min-width: 0; /* prevents overflow in flex container */
+}
+
+.inputInner::placeholder {
+  color: var(--color-neutral-500);
+}
+
+.inputInner:focus {
+  outline: none;
+}
+
+/* Remove native date picker chrome — we show our own calendar icon */
+.inputInner[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+}
+
+/* Remove number input spin buttons */
+.inputInner[type="number"]::-webkit-inner-spin-button,
+.inputInner[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ================================
+   ERROR MESSAGE
+   ================================ */
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-red-500);
+}
+
+.errorMessage img {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/* ================================
+   FOOTER BUTTONS
+   ================================ */
+
+.footer {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.4rem;
+}
+
+.footer > * {
+  flex: 1;
+}
+
+/* ================================
+   DESKTOP — Wider padding
+   ================================ */
+
+@media (min-width: 48em) {
+  .panel {
+    padding: 2.8rem 3.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .inputWrapper,
+  .closeBtn {
+    transition: none;
+  }
+}

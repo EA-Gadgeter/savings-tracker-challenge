@@ -1,12 +1,12 @@
-import type { FC, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useModal } from "../../../hooks/useModal";
 import { Button } from "../Button/Button";
+import { CreateGoalModal } from "../../goals/CreateGoalModal/CreateGoalModal";
 import styles from "./Header.module.css";
 
-type HeaderProps = {
-  onCreateGoal: () => void;
-};
+const Header = (): ReactElement => {
+  const createGoalModal = useModal();
 
-const Header: FC<HeaderProps> = ({ onCreateGoal }): ReactElement => {
   return (
     <header className={styles.header}>
       <img
@@ -21,7 +21,7 @@ const Header: FC<HeaderProps> = ({ onCreateGoal }): ReactElement => {
         <Button
           type="button"
           variant="primary"
-          onClick={onCreateGoal}
+          onClick={createGoalModal.toggle}
           icon={
             <img
               src={`${import.meta.env.BASE_URL}assets/images/icon-plus.svg`}
@@ -32,6 +32,10 @@ const Header: FC<HeaderProps> = ({ onCreateGoal }): ReactElement => {
         >
           New goal
         </Button>
+
+        {createGoalModal.isOpen && (
+          <CreateGoalModal onClose={createGoalModal.toggle} />
+        )}
       </div>
     </header>
   );

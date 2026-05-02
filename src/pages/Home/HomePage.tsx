@@ -26,13 +26,9 @@ function HomePage(): React.JSX.Element {
     return sum + totalDeposit;
   }, 0);
 
-  const handleCreateGoal = (): void => {
-    // TODO: wire create goal flow
-  };
-
   return (
     <main className={styles.page}>
-      <Header onCreateGoal={handleCreateGoal} />
+      <Header />
 
       <div className={styles.content}>
         <section
