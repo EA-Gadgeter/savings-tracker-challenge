@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState, useId } from "react";
 import { useGoalsStore } from "../../../store/useGoalsStore";
 import { Button } from "../../common/Button/Button";
+
+import type { NewGoal } from "../../../types";
+
 import styles from "./CreateGoalModal.module.css";
 
 interface CreateGoalModalProps {
@@ -12,17 +15,12 @@ export function CreateGoalModal({
 }: CreateGoalModalProps): React.JSX.Element {
   const addGoal = useGoalsStore((state) => state.addGoal);
 
-  // TODO: Initialize state for form values
-  // const [values, setValues] = useState({ name: "", target: "", deadline: "" });
-
-  // TODO: Initialize state for validation errors (only required fields need errors)
-  // const [errors, setErrors] = useState({ name: "", target: "" });
-
-  // TODO: Initialize state for touched fields
-  // No built-in React API for this — you manage it manually with useState.
-  // A field becomes "touched" when the user leaves it (onBlur).
-  // On submit, you mark all fields as touched so errors show for untouched fields too.
-  // const [touched, setTouched] = useState({ name: false, target: false });
+  const nameId = useId();
+  const targetId = useId();
+  const deadlineId = useId();
+  //Initialize state for validation errors (only required fields need errors)
+  const [errors, setErrors] = useState({ name: "", target: "" });
+  const [touched, setTouched] = useState({ name: false, target: false });
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -32,21 +30,67 @@ export function CreateGoalModal({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  // TODO: Implement validate() — returns a new errors object
-  // Rules: name is required, target is required and must be > 0
-  // const validate = () => { ... };
+  const validate = (formData: FormData): NewGoal | null => {
+    const nameError = "Goal name is required";
+    let targetError = "Target amount is required";
 
-  // TODO: Implement handleChange(field, value) — updates the matching key in values state
-  // const handleChange = (...) => { ... };
+    const name = formData.get(nameId)?.toString().trim() || "";
+    const target = formData.get(targetId)?.toString().trim() || "";
+    const deadlineValue = formData.get(deadlineId)?.toString().trim() || null;
 
-  // TODO: Implement handleBlur(field) — marks the field as touched, then runs validate()
-  // and updates the errors state for that field only
-  // const handleBlur = (...) => { ... };
+    if (!name || !target) {
+      setErrors({
+        name: name ? "" : nameError,
+        target: target ? "" : targetError,
+      });
+      setTouched({ name: true, target: true });
+      return null;
+    }
 
-  // TODO: Implement handleSubmit — marks ALL fields as touched, runs validate(),
-  // if no errors: call addGoal with { name, target: Number(target), deadline: deadline || null }
-  // then call onClose()
-  // const handleSubmit = (e: React.FormEvent) => { ... };
+    const targetNumber = parseFloat(target);
+
+    if (isNaN(targetNumber) || targetNumber <= 0) {
+      targetError = "Target amount must be greater than $0";
+      setErrors((prev) => ({ ...prev, target: targetError }));
+      setTouched((prev) => ({ ...prev, target: true }));
+      return null;
+    }
+
+    return {
+      name,
+      target: targetNumber,
+      deadline: deadlineValue,
+    };
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const fieldName = e.target.name;
+    const value = e.target.value.trim();
+
+    if (fieldName === nameId) {
+      setTouched((prev) => ({ ...prev, name: true }));
+      if (!value)
+        setErrors((prev) => ({ ...prev, name: "Goal name is required" }));
+      else setErrors((prev) => ({ ...prev, name: "" }));
+    } else if (fieldName === targetId) {
+      setTouched((prev) => ({ ...prev, target: true }));
+      if (!value)
+        setErrors((prev) => ({ ...prev, target: "Target amount is required" }));
+      else setErrors((prev) => ({ ...prev, target: "" }));
+    }
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const validData = validate(formData);
+
+    if (!validData) return;
+
+    addGoal(validData);
+    onClose();
+  };
 
   return (
     <>
@@ -79,32 +123,27 @@ export function CreateGoalModal({
         <hr className={styles.divider} />
 
         {/* ── Form ── */}
-        <form
-          onSubmit={/* TODO: handleSubmit */ undefined}
-          noValidate
-          className={styles.form}
-        >
+        <form onSubmit={handleSubmit} noValidate className={styles.form}>
           {/* Goal name */}
           <div className={styles.field}>
-            <label htmlFor="goal-name" className={styles.label}>
+            <label htmlFor={nameId} className={styles.label}>
               Goal name
             </label>
             <input
-              id="goal-name"
+              id={nameId}
+              name={nameId}
               type="text"
               placeholder="e.g. MacBook Pro M4"
-              className={`${styles.input} ${
-                /* TODO: touched.name && errors.name ? styles.inputError : "" */ ""
-              }`}
-              value={/* TODO */ ""}
-              onChange={/* TODO */ undefined}
-              onBlur={/* TODO */ undefined}
+              className={`${styles.input}
+                ${touched.name && errors.name ? styles.inputError : ""}
+              `}
+              onBlur={handleBlur}
               aria-describedby={
-                /* TODO: touched.name && errors.name ? "goal-name-error" : undefined */ undefined
+                touched.name && errors.name ? "goal-name-error" : undefined
               }
             />
-            {/* TODO: replace `false` with: touched.name && errors.name */}
-            {false && (
+
+            {touched.name && errors.name && (
               <p
                 id="goal-name-error"
                 className={styles.errorMessage}
@@ -115,20 +154,20 @@ export function CreateGoalModal({
                   alt=""
                   aria-hidden="true"
                 />
-                Goal name is required
+                {errors.name}
               </p>
             )}
           </div>
 
           {/* Target amount */}
           <div className={styles.field}>
-            <label htmlFor="goal-target" className={styles.label}>
+            <label htmlFor={targetId} className={styles.label}>
               Target amount
             </label>
             <div
-              className={`${styles.inputWrapper} ${
-                /* TODO: touched.target && errors.target ? styles.inputWrapperError : "" */ ""
-              }`}
+              className={`${styles.inputWrapper}
+                ${touched.target && errors.target ? styles.inputWrapperError : ""}
+              `}
             >
               <img
                 src="/assets/images/icon-dollar.svg"
@@ -137,20 +176,23 @@ export function CreateGoalModal({
                 className={styles.inputIcon}
               />
               <input
-                id="goal-target"
+                id={targetId}
+                name={targetId}
                 type="number"
                 min="0.01"
                 step="0.01"
                 placeholder="0.00"
                 className={styles.inputInner}
-                value={/* TODO */ ""}
-                onChange={/* TODO */ undefined}
-                onBlur={/* TODO */ undefined}
-                aria-describedby={/* TODO */ undefined}
+                onBlur={handleBlur}
+                aria-describedby={
+                  touched.target && errors.target
+                    ? "goal-target-error"
+                    : undefined
+                }
               />
             </div>
-            {/* TODO: replace `false` with: touched.target && errors.target */}
-            {false && (
+
+            {touched.target && errors.target && (
               <p
                 id="goal-target-error"
                 className={styles.errorMessage}
@@ -161,16 +203,14 @@ export function CreateGoalModal({
                   alt=""
                   aria-hidden="true"
                 />
-                Target amount must be greater than $0
+                {errors.target}
               </p>
             )}
           </div>
 
-          {/* Deadline (optional) */}
           <div className={styles.field}>
-            <label htmlFor="goal-deadline" className={styles.label}>
-              Deadline{" "}
-              <span className={styles.optional}>(optional)</span>
+            <label htmlFor={deadlineId} className={styles.label}>
+              Deadline <span className={styles.optional}>(optional)</span>
             </label>
             <div className={styles.inputWrapper}>
               <img
@@ -180,11 +220,10 @@ export function CreateGoalModal({
                 className={styles.inputIcon}
               />
               <input
-                id="goal-deadline"
+                id={deadlineId}
+                name={deadlineId}
                 type="date"
                 className={styles.inputInner}
-                value={/* TODO */ ""}
-                onChange={/* TODO */ undefined}
               />
             </div>
           </div>

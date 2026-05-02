@@ -9,7 +9,19 @@ export const useGoalsStore = create<GoalsState>()((set) => ({
   activeSort: "recently-added",
 
   addGoal: (_newGoal) => {
-    set((_state) => ({}));
+    set((_state) => {
+      const latestGoal = _state.goals.at(-1);
+      const latestIdNumber = parseInt(latestGoal?.id.split("-").pop() || "0");
+
+      const newGoalData: Goal = {
+        id: `goal-${latestIdNumber + 1}`,
+        createdAt: new Date().toISOString(),
+        deposits: [],
+        ..._newGoal,
+      };
+
+      return { goals: [..._state.goals, newGoalData] };
+    });
   },
 
   updateGoal: (_id, _updates) => {
@@ -25,10 +37,10 @@ export const useGoalsStore = create<GoalsState>()((set) => ({
   },
 
   setFilter: (_filter) => {
-    set((_state) => ({}));
+    set(() => ({ activeFilter: _filter }));
   },
 
   setSort: (_sort) => {
-    set((_state) => ({}));
+    set(() => ({ activeSort: _sort }));
   },
 }));
