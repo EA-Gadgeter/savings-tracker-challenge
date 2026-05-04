@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import type { Goal } from "../../../types";
 import type { GoalCardVariant } from "../GoalCard/GoalCard.types";
 import GoalCard from "../GoalCard/GoalCard";
@@ -22,7 +23,9 @@ function GoalsList({ goals }: GoalsListProps): React.JSX.Element {
     <ul className={styles.list}>
       {goals.map((goal) => (
         <li key={goal.id}>
-          <GoalCard goal={goal} variant={getVariant(goal)} />
+          <Link href={`/goals/${goal.id}`} className={styles.cardLink}>
+            <GoalCard goal={goal} variant={getVariant(goal)} />
+          </Link>
         </li>
       ))}
     </ul>

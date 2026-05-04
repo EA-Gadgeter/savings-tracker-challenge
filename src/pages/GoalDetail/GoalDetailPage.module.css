@@ -1,0 +1,100 @@
+.page {
+  min-height: 100vh;
+}
+
+.content {
+  padding: 4rem 1.6rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+/* ── Navigation ── */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.6rem;
+  line-height: 150%;
+  letter-spacing: -0.03rem;
+  font-weight: 500;
+  color: var(--color-neutral-400);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.backLink:hover {
+  color: var(--color-neutral-0);
+}
+
+.backLink:focus-visible {
+  outline: 0.2rem solid var(--color-neutral-0);
+  outline-offset: 0.3rem;
+  border-radius: 0.4rem;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.editBtn {
+  font-size: 1.6rem;
+  line-height: 150%;
+  letter-spacing: -0.03rem;
+  font-weight: 500;
+  color: var(--color-neutral-300);
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.editBtn:hover {
+  color: var(--color-neutral-0);
+}
+
+.deleteBtn {
+  font-size: 1.6rem;
+  line-height: 150%;
+  letter-spacing: -0.03rem;
+  font-weight: 500;
+  color: var(--color-orange-400);
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.deleteBtn:hover {
+  color: var(--color-orange-500);
+}
+
+.editBtn:focus-visible,
+.deleteBtn:focus-visible {
+  outline: 0.2rem solid var(--color-neutral-0);
+  outline-offset: 0.3rem;
+  border-radius: 0.4rem;
+}
+
+/* ── Goal header ── */
+
+.goalName {
+  font-family: var(--font-heading);
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-neutral-0);
+  margin-bottom: 0.8rem;
+}
+
+.goalMeta {
+  font-size: 1.3rem;
+  color: var(--color-neutral-400);
+}

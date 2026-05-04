@@ -1,0 +1,96 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* ── Section header ── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-0);
+}
+
+.count {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-neutral-400);
+}
+
+.empty {
+  font-size: 1.4rem;
+  color: var(--color-neutral-400);
+  padding: 1.6rem 0;
+}
+
+/* ── Deposit list ── */
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.6rem 0;
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.08);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+/* ── Icon circle ── */
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background-color: var(--color-neutral-700);
+  border: 0.1rem solid rgba(255, 255, 255, 0.1);
+}
+
+/* ── Note and date ── */
+
+.details {
+  flex: 1;
+  min-width: 0;
+}
+
+.note {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-neutral-0);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date {
+  font-size: 1.2rem;
+  color: var(--color-neutral-400);
+  margin-top: 0.2rem;
+}
+
+/* ── Amount ── */
+
+.amount {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-green-500);
+  flex-shrink: 0;
+}

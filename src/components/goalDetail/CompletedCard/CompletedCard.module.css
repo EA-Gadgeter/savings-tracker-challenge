@@ -1,0 +1,93 @@
+/* Orange gradient — mirrors the GoalCard highlight variant */
+.card {
+  background: linear-gradient(
+    135deg,
+    var(--color-orange-700) 0%,
+    var(--color-orange-400) 100%
+  );
+  border-radius: 1.6rem;
+  padding: 4rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ── Checkmark circle ── */
+
+.checkmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Text ── */
+
+.percent {
+  font-family: var(--font-heading);
+  font-size: 6.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02rem;
+  color: var(--color-neutral-0);
+  margin-top: 0.4rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 3.2rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  line-height: 120%;
+  color: var(--color-neutral-0);
+}
+
+.description {
+  margin-bottom: 2.75rem;
+
+  font-size: 1.6rem;
+  line-height: 150%;
+  letter-spacing: -0.03rem;
+  color: var(--color-neutral-0);
+}
+
+/* ── Stats ── */
+
+.stats {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.statSeparator {
+  width: 0.1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 2rem;
+  flex-shrink: 0;
+}
+
+.statValue {
+  font-family: var(--font-body);
+  font-size: 3.2rem;
+  line-height: 120%;
+  font-weight: 700;
+  color: var(--color-neutral-0);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.03rem;
+  text-transform: uppercase;
+  color: var(--color-neutral-0);
+}

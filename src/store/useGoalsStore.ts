@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Goal } from "../types";
+import type { Goal, Deposit } from "../types";
 import type { GoalsState } from "../types/store";
 import mockData from "../mock/data.json";
 
@@ -32,8 +32,22 @@ export const useGoalsStore = create<GoalsState>()((set) => ({
     set((_state) => ({}));
   },
 
-  addDeposit: (_goalId, _newDeposit) => {
-    set((_state) => ({}));
+  addDeposit: (goalId, newDeposit) => {
+    set((state) => {
+      const goals = state.goals.map((goal) => {
+        if (goal.id !== goalId) return goal;
+        const deposit: Deposit = {
+          // Use goal id + timestamp for a unique deposit id
+          id: `dep-${goalId}-${Date.now()}`,
+          amount: newDeposit.amount,
+          note: newDeposit.note,
+          createdAt: new Date().toISOString(),
+        };
+        // Prepend so the newest deposit shows first in history
+        return { ...goal, deposits: [deposit, ...goal.deposits] };
+      });
+      return { goals };
+    });
   },
 
   setFilter: (_filter) => {

@@ -3,3 +3,11 @@
   flex-direction: column;
   gap: 1.6rem;
 }
+
+/* Resets <a> styles so the card looks and behaves identically to before,
+   but is now a proper navigable link for accessibility and browser history */
+.cardLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}

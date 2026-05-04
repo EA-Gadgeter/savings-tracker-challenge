@@ -1,0 +1,129 @@
+/* Reuses the same input styles as CreateGoalModal —  */
+
+.card {
+  background-color: var(--color-neutral-800);
+  border: 0.1rem solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.6rem;
+  padding: 2rem;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-0);
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-neutral-0);
+}
+
+.optional {
+  color: var(--color-neutral-400);
+  font-weight: 400;
+}
+
+/* Input wrapper with icon */
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background-color: var(--color-neutral-700);
+  border: 0.1rem solid var(--color-neutral-600);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  transition: border-color 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-neutral-400);
+}
+
+.inputWrapper.inputWrapperError {
+  border-color: var(--color-red-500);
+}
+
+.inputWrapper.inputWrapperError:focus-within {
+  border-color: var(--color-red-500);
+}
+
+.inputIcon {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  opacity: 0.6;
+}
+
+.inputInner {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--color-neutral-0);
+  font-size: 1.5rem;
+  min-width: 0;
+}
+
+.inputInner::placeholder {
+  color: var(--color-neutral-500);
+}
+
+.inputInner:focus {
+  outline: none;
+}
+
+.inputInner[type="number"]::-webkit-inner-spin-button,
+.inputInner[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Standalone input (note field) */
+.input {
+  width: 100%;
+  background-color: var(--color-neutral-700);
+  border: 0.1rem solid var(--color-neutral-600);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  color: var(--color-neutral-0);
+  font-size: 1.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--color-neutral-500);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-neutral-400);
+}
+
+/* Error */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-red-500);
+}
+
+.errorMessage img {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+}
