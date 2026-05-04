@@ -1,0 +1,144 @@
+/* ================================
+   CARD WRAPPER
+   ================================ */
+
+.card {
+  background-color: var(--color-neutral-800);
+  border-radius: 1.6rem;
+  padding: 2.4rem;
+
+  overflow: hidden;
+}
+
+/* ================================
+   TITLE
+   ================================ */
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-0);
+  margin-bottom: 2.4rem;
+}
+
+/* ================================
+   EMPTY STATE
+   ================================ */
+
+.empty {
+  font-size: 1.4rem;
+  color: var(--color-neutral-400);
+}
+
+/* ================================
+   SCROLL WRAPPER
+
+   overflow-x: auto enables horizontal scroll when content is wider
+   than the card. The scrollbar is hidden visually but the scroll still
+   works — touch devices swipe naturally, desktop uses trackpad or
+   shift+scroll.
+   ================================ */
+
+.scrollWrapper {
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollWrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* ================================
+   BARS SECTION
+
+   fixed height + align-items: flex-end keeps bars at the bottom vertically.
+   Without this, all bars would stretch to fill the full height
+
+   The fixed height gives percentage heights on children a concrete reference:
+   height: 20% of 20rem = 4rem. Without a definite height on the parent,
+   percentage heights on flex children have no meaning.
+   ================================ */
+
+.barsSection {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  height: 18.4rem;
+}
+
+/* ================================
+   SINGLE BAR
+
+   min-height: 0.6rem — a month with $0 (if we ever pass one) would be
+   invisible. A tiny floor keeps it visually present.
+   ================================ */
+
+.bar {
+  /* min-width is what triggers scroll: once bars can't shrink any
+     further, the total width of .barsSection exceeds the card width
+     and the scrollWrapper kicks in. */
+  min-width: 4.517rem;
+  background-color: var(--color-orange-400);
+  border: 1px solid color-mix(in srgb, var(--color-neutral-0), transparent 70%);
+  border-radius: 0.6rem;
+  min-height: 0.6rem;
+}
+
+/* ================================
+   LABELS SECTION
+
+   This row MUST mirror the bars section exactly:
+   - Same "gap" value → columns stay aligned horizontally
+   - Same min-width from bar on each label
+
+   If you change the gap in barsSection, change it here too.
+   ================================ */
+
+.labelsSection {
+  display: flex;
+  min-width: 4.517rem;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.labelGroup {
+  flex: 1;
+  /* Must match .bar min-width so labels stay aligned under their bars */
+  min-width: 4.517rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.amount {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-neutral-400);
+  text-align: center;
+  /* Truncate instead of wrapping or overflowing */
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.month {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-neutral-0);
+  text-align: center;
+}
+
+/* ================================
+   REDUCED MOTION
+   If we ever add a transition to .bar (e.g. when data updates),
+   this disables it for users who prefer less motion.
+   ================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .bar {
+    transition: height 0.4s ease;
+  }
+}

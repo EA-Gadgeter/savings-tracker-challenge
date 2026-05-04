@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import Header from "../../components/common/Header/Header";
 import SummaryCard from "../../components/dashboard/SummaryCard/SummaryCard";
+import { MonthlyDepositsChart } from "../../components/dashboard/MonthlyDepositsChart/MonthlyDepositsChart";
 import GoalsEmptyState from "../../components/goals/GoalsEmptyState/GoalsEmptyState";
 import GoalsList from "../../components/goals/GoalsList/GoalsList";
 import { GoalsToolbar } from "../../components/goals/GoalsToolbar/GoalsToolbar";
@@ -73,11 +74,7 @@ function HomePage(): React.JSX.Element {
             showPattern
           />
 
-          <SummaryCard
-            title="Monthly deposits"
-            value="No deposits yet"
-            isEmpty
-          />
+          <MonthlyDepositsChart goals={goals} />
         </section>
 
         <section

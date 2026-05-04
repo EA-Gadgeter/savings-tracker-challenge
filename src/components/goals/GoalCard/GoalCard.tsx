@@ -1,6 +1,9 @@
 import type { Goal } from "../../../types";
 import type { GoalCardVariant } from "./GoalCard.types";
-import { formatCurrency, formatDeadline } from "../../../utils/formatters";
+import {
+  formatCurrencyCompact,
+  formatDeadline,
+} from "../../../utils/formatters";
 import styles from "./GoalCard.module.css";
 
 interface GoalCardProps {
@@ -90,7 +93,8 @@ function GoalCard({
 
       <p className={`${styles.meta} ${metaVariantClass[variant]}`}>
         <span>
-          {formatCurrency(savedAmount)} of {formatCurrency(goal.target)}
+          {formatCurrencyCompact(savedAmount)} of{" "}
+          {formatCurrencyCompact(goal.target)}
         </span>
         <span className={styles.separator} aria-hidden="true">
           ·

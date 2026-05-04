@@ -1,3 +1,4 @@
+// Standard formatter — used for most monetary values ($1,149.00)
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -12,8 +13,20 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   timeZone: "UTC",
 });
 
+// Compact formatter — used in tight spaces like chart labels ($1,149)
+const currencyFormatterCompact = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
 export function formatCurrency(amount: number): string {
   return currencyFormatter.format(amount);
+}
+
+export function formatCurrencyCompact(amount: number): string {
+  return currencyFormatterCompact.format(amount);
 }
 
 export function formatDate(dateString: string): string {
