@@ -8,28 +8,27 @@ import { GoalsToolbar } from "../../components/goals/GoalsToolbar/GoalsToolbar";
 import { useGoalsStore } from "../../store/useGoalsStore";
 import { formatCurrency } from "../../utils/formatters";
 import { sortFunctionsObject } from "../../utils/sortGoals";
+import { filterFunctionsObject } from "../../utils/filterGoals";
 import styles from "./HomePage.module.css";
 
 function HomePage(): React.JSX.Element {
   const goals = useGoalsStore((state) => state.goals);
   const activeSort = useGoalsStore((state) => state.activeSort);
+  const activeFilter = useGoalsStore((state) => state.activeFilter);
 
-  const sortedGoals = useMemo(
-    () => sortFunctionsObject[activeSort](goals),
-    [goals, activeSort],
-  );
-
-  const totalGoals = goals.length;
-
-  const goalsCompleted = useMemo(
+  const activeGoals = useMemo(
     () =>
       goals.filter((goal) => {
         const totalDeposit = goal.deposits.reduce(
           (sum, deposit) => sum + deposit.amount,
           0,
         );
-        return totalDeposit >= goal.target;
+        return totalDeposit < goal.target;
       }),
+    [goals],
+  );
+  const goalsCompleted = useMemo(
+    () => filterFunctionsObject["completed"](goals),
     [goals],
   );
 
@@ -43,6 +42,15 @@ function HomePage(): React.JSX.Element {
         return sum + totalDeposit;
       }, 0),
     [goals],
+  );
+
+  const sortedGoals = useMemo(
+    () => sortFunctionsObject[activeSort](goals),
+    [goals, activeSort],
+  );
+  const filteredGoals = useMemo(
+    () => filterFunctionsObject[activeFilter](sortedGoals),
+    [sortedGoals, activeFilter],
   );
 
   return (
@@ -62,7 +70,7 @@ function HomePage(): React.JSX.Element {
 
           <SummaryCard
             title="Active goals"
-            value={totalGoals.toString()}
+            value={activeGoals.length.toString()}
             valueVariant="highlight"
             showPattern
           />
@@ -89,10 +97,10 @@ function HomePage(): React.JSX.Element {
             <GoalsToolbar />
           </div>
 
-          {sortedGoals.length === 0 ? (
+          {filteredGoals.length === 0 ? (
             <GoalsEmptyState />
           ) : (
-            <GoalsList goals={sortedGoals} />
+            <GoalsList goals={filteredGoals} />
           )}
         </section>
       </div>
