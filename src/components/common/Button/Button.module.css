@@ -41,9 +41,9 @@
 }
 
 .secondary {
-  background-color: var(--color-neutral-800);
+  background-color: var(--color-neutral-700);
   border-color: var(--color-neutral-600);
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-0);
 }
 
 .secondary:hover {

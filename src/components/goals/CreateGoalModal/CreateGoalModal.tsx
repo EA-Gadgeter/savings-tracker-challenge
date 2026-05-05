@@ -2,23 +2,31 @@ import { useEffect, useState, useId } from "react";
 import { useGoalsStore } from "../../../store/useGoalsStore";
 import { Button } from "../../common/Button/Button";
 
-import type { NewGoal } from "../../../types";
+import type { Goal, NewGoal } from "../../../types";
 
 import styles from "./CreateGoalModal.module.css";
 
 interface CreateGoalModalProps {
   onClose: () => void;
+  /** When provided the modal operates in edit mode, pre-filling fields
+   *  with the goal's existing values and calling updateGoal on submit. */
+  goalToEdit?: Goal;
 }
 
 export function CreateGoalModal({
   onClose,
+  goalToEdit,
 }: CreateGoalModalProps): React.JSX.Element {
   const addGoal = useGoalsStore((state) => state.addGoal);
+  const updateGoal = useGoalsStore((state) => state.updateGoal);
+
+  // Determines title, button label, and which store action to call
+  const isEditMode = !!goalToEdit;
 
   const nameId = useId();
   const targetId = useId();
   const deadlineId = useId();
-  //Initialize state for validation errors (only required fields need errors)
+
   const [errors, setErrors] = useState({ name: "", target: "" });
   const [touched, setTouched] = useState({ name: false, target: false });
 
@@ -69,14 +77,16 @@ export function CreateGoalModal({
 
     if (fieldName === nameId) {
       setTouched((prev) => ({ ...prev, name: true }));
-      if (!value)
-        setErrors((prev) => ({ ...prev, name: "Goal name is required" }));
-      else setErrors((prev) => ({ ...prev, name: "" }));
+      setErrors((prev) => ({
+        ...prev,
+        name: value ? "" : "Goal name is required",
+      }));
     } else if (fieldName === targetId) {
       setTouched((prev) => ({ ...prev, target: true }));
-      if (!value)
-        setErrors((prev) => ({ ...prev, target: "Target amount is required" }));
-      else setErrors((prev) => ({ ...prev, target: "" }));
+      setErrors((prev) => ({
+        ...prev,
+        target: value ? "" : "Target amount is required",
+      }));
     }
   };
 
@@ -88,7 +98,11 @@ export function CreateGoalModal({
 
     if (!validData) return;
 
-    addGoal(validData);
+    if (isEditMode) {
+      updateGoal(goalToEdit!.id, validData);
+    } else {
+      addGoal(validData);
+    }
     onClose();
   };
 
@@ -99,13 +113,13 @@ export function CreateGoalModal({
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="create-goal-title"
+        aria-labelledby="goal-modal-title"
         className={styles.panel}
       >
         {/* ── Header ── */}
         <div className={styles.header}>
-          <h2 id="create-goal-title" className={styles.title}>
-            New goal
+          <h2 id="goal-modal-title" className={styles.title}>
+            {isEditMode ? "Edit goal" : "New goal"}
           </h2>
           <button
             className={styles.closeBtn}
@@ -137,6 +151,7 @@ export function CreateGoalModal({
               className={`${styles.input}
                 ${touched.name && errors.name ? styles.inputError : ""}
               `}
+              defaultValue={goalToEdit?.name ?? ""}
               onBlur={handleBlur}
               aria-describedby={
                 touched.name && errors.name ? "goal-name-error" : undefined
@@ -183,6 +198,7 @@ export function CreateGoalModal({
                 step="0.01"
                 placeholder="0.00"
                 className={styles.inputInner}
+                defaultValue={goalToEdit ? String(goalToEdit.target) : ""}
                 onBlur={handleBlur}
                 aria-describedby={
                   touched.target && errors.target
@@ -208,6 +224,7 @@ export function CreateGoalModal({
             )}
           </div>
 
+          {/* Deadline */}
           <div className={styles.field}>
             <label htmlFor={deadlineId} className={styles.label}>
               Deadline <span className={styles.optional}>(optional)</span>
@@ -224,6 +241,7 @@ export function CreateGoalModal({
                 name={deadlineId}
                 type="date"
                 className={styles.inputInner}
+                defaultValue={goalToEdit?.deadline ?? ""}
               />
             </div>
           </div>
@@ -234,7 +252,7 @@ export function CreateGoalModal({
               Cancel
             </Button>
             <Button variant="primary" type="submit">
-              Create goal
+              {isEditMode ? "Save changes" : "Create goal"}
             </Button>
           </div>
         </form>

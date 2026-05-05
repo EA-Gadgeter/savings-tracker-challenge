@@ -25,7 +25,16 @@ export const useGoalsStore = create<GoalsState>()((set) => ({
   },
 
   updateGoal: (_id, _updates) => {
-    set((_state) => ({}));
+    set((_state) => {
+      const goalIndex = _state.goals.findIndex((goal) => goal.id === _id);
+      if (goalIndex === -1) return _state; // Goal not found, no update
+
+      const updatedGoal = { ..._state.goals[goalIndex], ..._updates };
+      const updatedGoals = [..._state.goals];
+      updatedGoals[goalIndex] = updatedGoal;
+
+      return { goals: updatedGoals };
+    });
   },
 
   deleteGoal: (_id) => {

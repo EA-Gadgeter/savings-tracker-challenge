@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useLocation, Link } from "wouter";
 import { useGoalsStore } from "../../store/useGoalsStore";
 import Header from "../../components/common/Header/Header";
+import { CreateGoalModal } from "../../components/goals/CreateGoalModal/CreateGoalModal";
 import { ProgressCard } from "../../components/goalDetail/ProgressCard/ProgressCard";
 import { CompletedCard } from "../../components/goalDetail/CompletedCard/CompletedCard";
 import { AddDepositForm } from "../../components/goalDetail/AddDepositForm/AddDepositForm";
@@ -14,6 +15,8 @@ function GoalDetailPage(): React.JSX.Element | null {
   const [, navigate] = useLocation();
 
   const goal = useGoalsStore((state) => state.goals.find((g) => g.id === id));
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Redirect to home if goal doesn't exist (deleted or invalid URL)
   useEffect(() => {
@@ -44,12 +47,23 @@ function GoalDetailPage(): React.JSX.Element | null {
           </Link>
 
           <div className={styles.navActions}>
-            {/* TODO: wire up to EditGoalModal */}
-            <button className={styles.editBtn}>Edit goal</button>
+            <button
+              className={styles.editBtn}
+              onClick={() => setIsEditModalOpen(true)}
+            >
+              Edit goal
+            </button>
             {/* TODO: wire up to DeleteGoalModal */}
             <button className={styles.deleteBtn}>Delete goal</button>
           </div>
         </nav>
+
+        {isEditModalOpen && (
+          <CreateGoalModal
+            goalToEdit={goal}
+            onClose={() => setIsEditModalOpen(false)}
+          />
+        )}
 
         {/* ── Goal header ── */}
         <div className={styles.goalHeader}>
