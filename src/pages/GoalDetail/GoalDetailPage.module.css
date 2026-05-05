@@ -3,12 +3,10 @@
 }
 
 .content {
-  padding: 4rem 1.6rem 4rem;
+  padding: 4rem 1.6rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 64rem;
-  margin: 0 auto;
 }
 
 /* ── Navigation ── */
@@ -37,9 +35,9 @@
 }
 
 .backLink:focus-visible {
-  outline: 0.2rem solid var(--color-neutral-0);
-  outline-offset: 0.3rem;
-  border-radius: 0.4rem;
+  outline: 0.2rem solid var(--color-orange-400);
+  outline-offset: 0.4rem;
+  border-radius: 999rem;
 }
 
 .navActions {
@@ -76,11 +74,30 @@
   color: var(--color-orange-500);
 }
 
-.editBtn:focus-visible,
-.deleteBtn:focus-visible {
-  outline: 0.2rem solid var(--color-neutral-0);
-  outline-offset: 0.3rem;
+.editBtn:focus-visible {
+  outline: 0.2rem solid var(--color-orange-400);
+  outline-offset: 0.4rem;
   border-radius: 0.4rem;
+}
+
+.deleteBtn:focus-visible {
+  outline: 0.2rem solid var(--color-orange-400);
+  outline-offset: 0.4rem;
+  border-radius: 999rem;
+}
+
+/* ── Two-column body ── */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mainCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* ── Goal header ── */
@@ -97,4 +114,49 @@
 .goalMeta {
   font-size: 1.3rem;
   color: var(--color-neutral-400);
+}
+
+/* ================================
+   TABLET — 768px
+   ================================ */
+
+@media (width >= 768px) {
+  .content {
+    padding: 4rem 3.2rem;
+  }
+
+  .goalName {
+    font-size: 4.4rem;
+  }
+}
+
+/* ================================
+   DESKTOP — 1440px
+   ================================ */
+
+@media (width >= 1440px) {
+  .content {
+    padding: 4rem 8rem;
+    max-width: 144rem;
+    margin: 0 auto;
+  }
+
+  .goalName {
+    font-size: 5.6rem;
+  }
+
+  .body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3.2rem;
+  }
+
+  .mainCol {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sidebar {
+    flex: 0 0 38rem;
+  }
 }

@@ -51,7 +51,7 @@
 }
 
 .inputWrapper:focus-within {
-  border-color: var(--color-neutral-400);
+  border-color: var(--color-orange-400);
 }
 
 .inputWrapper.inputWrapperError {
@@ -109,7 +109,7 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--color-neutral-400);
+  border-color: var(--color-orange-400);
 }
 
 /* Error */

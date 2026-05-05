@@ -30,7 +30,6 @@ export function GoalsToolbar(): React.JSX.Element {
         sortWrapperRef.current &&
         !sortWrapperRef.current.contains(e.target as Node)
       ) {
-        console.log(e.target);
         sortModal.close();
       }
     }

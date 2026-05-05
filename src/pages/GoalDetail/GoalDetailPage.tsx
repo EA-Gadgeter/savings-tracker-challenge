@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams, useLocation, Link } from "wouter";
 import { useGoalsStore } from "../../store/useGoalsStore";
 import { useModal } from "../../hooks/useModal";
@@ -50,11 +50,11 @@ function GoalDetailPage(): React.JSX.Element | null {
           </Link>
 
           <div className={styles.navActions}>
-            <button className={styles.editBtn} onClick={editModal.toggle}>
+            <button className={styles.editBtn} onClick={editModal.open}>
               Edit goal
             </button>
 
-            <button className={styles.deleteBtn} onClick={deleteModal.toggle}>
+            <button className={styles.deleteBtn} onClick={deleteModal.open}>
               Delete goal
             </button>
           </div>
@@ -82,18 +82,25 @@ function GoalDetailPage(): React.JSX.Element | null {
           </p>
         </div>
 
-        {/* ── Progress or Completed card ── */}
-        {isComplete ? (
-          <CompletedCard goal={goal} savedAmount={savedAmount} />
-        ) : (
-          <ProgressCard goal={goal} savedAmount={savedAmount} />
-        )}
+        {/* ── Two-column body: main content + deposit history sidebar ── */}
+        <div className={styles.body}>
+          <div className={styles.mainCol}>
+            {/* ── Progress or Completed card ── */}
+            {isComplete ? (
+              <CompletedCard goal={goal} savedAmount={savedAmount} />
+            ) : (
+              <ProgressCard goal={goal} savedAmount={savedAmount} />
+            )}
 
-        {/* ── Add deposit form (hidden once goal is complete) ── */}
-        {!isComplete && <AddDepositForm goalId={goal.id} />}
+            {/* ── Add deposit form (hidden once goal is complete) ── */}
+            {!isComplete && <AddDepositForm goalId={goal.id} />}
+          </div>
 
-        {/* ── Deposit history ── */}
-        <DepositList deposits={goal.deposits} />
+          {/* ── Deposit history ── */}
+          <aside className={styles.sidebar}>
+            <DepositList deposits={goal.deposits} />
+          </aside>
+        </div>
       </div>
     </main>
   );

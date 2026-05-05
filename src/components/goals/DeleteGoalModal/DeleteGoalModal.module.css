@@ -46,7 +46,7 @@
   animation: panelIn 0.25s ease;
   z-index: 41;
   width: calc(100% - 3.2rem);
-  max-width: 48rem;
+  max-width: 68rem;
   background-color: var(--color-neutral-800);
   border-radius: 2rem;
   border: 0.1rem solid rgba(255, 255, 255, 0.12);
@@ -138,9 +138,17 @@
    DESKTOP
    ================================ */
 
-@media (min-width: 48em) {
+@media (width >= 768px) {
   .panel {
     padding: 2.8rem 3.2rem;
+  }
+
+  .footer {
+    justify-content: flex-end;
+  }
+
+  .footer > * {
+    flex: none;
   }
 }
 
