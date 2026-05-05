@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, Link } from "wouter";
 import { useGoalsStore } from "../../store/useGoalsStore";
+import { useModal } from "../../hooks/useModal";
 import Header from "../../components/common/Header/Header";
 import { CreateGoalModal } from "../../components/goals/CreateGoalModal/CreateGoalModal";
+import { DeleteGoalModal } from "../../components/goals/DeleteGoalModal/DeleteGoalModal";
 import { ProgressCard } from "../../components/goalDetail/ProgressCard/ProgressCard";
 import { CompletedCard } from "../../components/goalDetail/CompletedCard/CompletedCard";
 import { AddDepositForm } from "../../components/goalDetail/AddDepositForm/AddDepositForm";
@@ -16,7 +18,8 @@ function GoalDetailPage(): React.JSX.Element | null {
 
   const goal = useGoalsStore((state) => state.goals.find((g) => g.id === id));
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const editModal = useModal();
+  const deleteModal = useModal();
 
   // Redirect to home if goal doesn't exist (deleted or invalid URL)
   useEffect(() => {
@@ -47,21 +50,25 @@ function GoalDetailPage(): React.JSX.Element | null {
           </Link>
 
           <div className={styles.navActions}>
-            <button
-              className={styles.editBtn}
-              onClick={() => setIsEditModalOpen(true)}
-            >
+            <button className={styles.editBtn} onClick={editModal.toggle}>
               Edit goal
             </button>
-            {/* TODO: wire up to DeleteGoalModal */}
-            <button className={styles.deleteBtn}>Delete goal</button>
+
+            <button className={styles.deleteBtn} onClick={deleteModal.toggle}>
+              Delete goal
+            </button>
           </div>
         </nav>
 
-        {isEditModalOpen && (
-          <CreateGoalModal
-            goalToEdit={goal}
-            onClose={() => setIsEditModalOpen(false)}
+        {editModal.isOpen && (
+          <CreateGoalModal goalToEdit={goal} onClose={editModal.toggle} />
+        )}
+
+        {deleteModal.isOpen && (
+          <DeleteGoalModal
+            goalId={goal.id}
+            goalName={goal.name}
+            onClose={deleteModal.close}
           />
         )}
 

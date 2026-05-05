@@ -51,6 +51,15 @@
   color: var(--color-neutral-0);
 }
 
+.destructive {
+  background-color: var(--color-red-500);
+  color: var(--color-neutral-900);
+}
+
+.destructive:hover {
+  background-color: var(--color-orange-500);
+}
+
 .active.secondary {
   border-color: var(--color-orange-400);
   color: var(--color-neutral-0);

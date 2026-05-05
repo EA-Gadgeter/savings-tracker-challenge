@@ -1,0 +1,154 @@
+/* ================================
+   KEYFRAMES
+   ================================ */
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 1.2rem));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ================================
+   BACKDROP
+   ================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+  animation: backdropIn 0.2s ease;
+}
+
+/* ================================
+   PANEL
+   ================================ */
+
+.panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: panelIn 0.25s ease;
+  z-index: 41;
+  width: calc(100% - 3.2rem);
+  max-width: 48rem;
+  background-color: var(--color-neutral-800);
+  border-radius: 2rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0.8rem 4rem rgba(0, 0, 0, 0.5);
+  padding: 2.8rem 2rem;
+}
+
+/* ================================
+   HEADER
+   ================================ */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-0);
+  line-height: 1.2;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.closeBtn:hover {
+  opacity: 0.7;
+}
+
+.closeBtn:focus-visible {
+  outline: 0.2rem solid var(--color-neutral-0);
+  outline-offset: 0.3rem;
+}
+
+.closeBtn img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* ================================
+   DIVIDER
+   ================================ */
+
+.divider {
+  border: none;
+  border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+  margin: 0;
+}
+
+/* ================================
+   DESCRIPTION
+   ================================ */
+
+.description {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--color-neutral-300);
+  padding: 2rem 0;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.footer {
+  display: flex;
+  gap: 1.2rem;
+  padding-top: 2.4rem;
+}
+
+.footer > * {
+  flex: 1;
+}
+
+/* ================================
+   DESKTOP
+   ================================ */
+
+@media (min-width: 48em) {
+  .panel {
+    padding: 2.8rem 3.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel,
+  .closeBtn {
+    animation: none;
+    transition: none;
+  }
+}

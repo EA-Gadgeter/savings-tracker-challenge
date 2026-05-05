@@ -38,7 +38,10 @@ export const useGoalsStore = create<GoalsState>()((set) => ({
   },
 
   deleteGoal: (_id) => {
-    set((_state) => ({}));
+    set((_state) => {
+      const updatedGoals = _state.goals.filter((goal) => goal.id !== _id);
+      return { goals: updatedGoals };
+    });
   },
 
   addDeposit: (goalId, newDeposit) => {
