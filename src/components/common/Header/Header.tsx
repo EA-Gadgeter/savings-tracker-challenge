@@ -9,13 +9,19 @@ const Header = (): ReactElement => {
 
   return (
     <header className={styles.header}>
-      <img
-        className={styles.logo}
-        src={`${import.meta.env.BASE_URL}assets/images/logo-small.svg`}
-        alt="Savings Tracker"
-        width={48}
-        height={48}
-      />
+      <picture>
+        <source
+          media="(width >= 768px)"
+          srcSet={`${import.meta.env.BASE_URL}assets/images/logo-large.svg`}
+        />
+        <img
+          className={styles.logo}
+          src={`${import.meta.env.BASE_URL}assets/images/logo-small.svg`}
+          alt="Savings Tracker"
+          width={48}
+          height={48}
+        />
+      </picture>
 
       <div className={styles.actions}>
         <Button

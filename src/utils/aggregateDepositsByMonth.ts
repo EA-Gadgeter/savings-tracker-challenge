@@ -28,23 +28,55 @@ export function aggregateDepositsByMonth(goals: Goal[]): MonthlyData[] {
     }
   }
 
-  return (
-    Array.from(monthMap.entries())
-      // Sort ascending by key string — works correctly because of double digiting.
-      // "2025-08" < "2025-09" < "2026-01" — localeCompare handles this safely.
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, total]) => {
-        // Reconstruct a Date object just to generate the short month name.
-        // new Date(year, monthIndex, 1) — month is 0-indexed here again.
-        const [year, month] = key.split("-").map(Number);
-        const date = new Date(year, month - 1, 1);
+  if (monthMap.size === 0) return [];
 
-        return {
-          key,
-          total,
-          // toLocaleDateString with { month: "short" } gives "Jan", "Feb", etc.
-          label: date.toLocaleDateString("en-US", { month: "short" }),
-        };
-      })
+  // Find the earliest and latest month that has deposits.
+  // localeCompare works correctly here because keys are "YYYY-MM" (zero-padded).
+  const sortedKeys = Array.from(monthMap.keys()).sort((a, b) =>
+    a.localeCompare(b),
   );
+  const lastKey = sortedKeys[sortedKeys.length - 1];
+
+  // Always display a fixed 12-month window ending at the most recent deposit month.
+  // This means months before the first deposit naturally appear as $0 bars on the
+  // left side of the chart, giving context about when saving activity started.
+  const result: MonthlyData[] = [];
+  const [lastYear, lastMonth] = lastKey.split("-").map(Number);
+  let year: number = lastYear;
+
+  // Subtract 11 (not 12) because the window is inclusive on both ends.
+  // lastMonth itself counts as month 1 of the 12, so we only step back 11 more.
+  // Example with given test data: last deposit = March 2026 (month 3)
+  //          3 - 11 = -8  → needs calendar adjustment (see below)
+  //          adjusted start = April 2025  → April … March = 12 months ✓
+  let month: number = lastMonth - 11;
+
+  // A result of 0 or below means we've crossed a year boundary.
+  // There is no month 0 or -8 in the calendar, so we wrap around:
+  // add 12 to land on the correct month and subtract 1 from the year.
+  // Example: month = -8  →  -8 + 12 = 4 (April),  year = 2026 - 1 = 2025
+  if (month <= 0) {
+    month += 12;
+    year -= 1;
+  }
+
+  while (year < lastYear || (year === lastYear && month <= lastMonth)) {
+    const key = `${year}-${String(month).padStart(2, "0")}`;
+    const date = new Date(year, month - 1, 1); // month - 1 because Date is 0-indexed
+
+    result.push({
+      key,
+      total: monthMap.get(key) ?? 0,
+      label: date.toLocaleDateString("en-US", { month: "short" }),
+    });
+
+    // Advance to next month, rolling over to January when we pass December.
+    month++;
+    if (month > 12) {
+      month = 1;
+      year++;
+    }
+  }
+
+  return result;
 }

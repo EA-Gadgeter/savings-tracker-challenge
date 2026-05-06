@@ -72,7 +72,7 @@ export function MonthlyDepositsChart({
               return (
                 <div
                   key={key}
-                  className={styles.bar}
+                  className={`${styles.bar}${total === 0 ? ` ${styles.emptyBar}` : ""}`}
                   style={{ height: `${heightPercent}%` }}
                 />
               );

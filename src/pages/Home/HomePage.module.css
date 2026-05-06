@@ -1,71 +1,89 @@
 .page {
-    min-height: 100vh;
-    background-color: var(--color-neutral-900);
-    color: var(--color-neutral-0);
+  min-height: 100vh;
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-0);
 }
 
 .content {
-    width: min(100%, 76.8rem);
-    margin: 0 auto;
-    padding: 3.2rem 1.6rem 4rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3.2rem 1.6rem 4rem;
 }
 
 .summaryGrid {
-    display: grid;
-    gap: 1.6rem;
-    margin-bottom: 4.8rem;
+  display: grid;
+  gap: 1.6rem;
+  margin-bottom: 4.8rem;
 }
 
 .goalsSection {
-    display: grid;
-    gap: 2.4rem;
+  display: grid;
+  gap: 2.4rem;
 }
 
 .goalsHeader {
-    display: grid;
-    gap: 1.6rem;
+  display: grid;
+  gap: 1.6rem;
 }
 
 .title {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.04em;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-@media (min-width: 48em) {
-    .content {
-        padding-inline: 3.2rem;
-        padding-bottom: 6.4rem;
-    }
+@media (width >= 768px) {
+  .content {
+    padding-inline: 3.2rem;
+    padding-bottom: 6.4rem;
+  }
 
-    .summaryGrid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-    .goalsHeader {
-        grid-template-columns: 1fr auto;
-        align-items: center;
-    }
+  /* Total savings (1st child): always full width */
+  .summaryGrid > *:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Monthly deposits chart (last child): always full width */
+  .summaryGrid > *:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .goalsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
-@media (min-width: 75em) {
-    .content {
-        width: min(100%, 120rem);
-        padding-top: 4rem;
-        padding-inline: 4rem;
-    }
+@media (width >= 1440px) {
+  .content {
+    width: min(100%, 144rem);
+    padding-top: 4rem;
+    padding-inline: 8rem;
+  }
 
-    .summaryGrid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        margin-bottom: 6.4rem;
-    }
+  .summaryGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 6.4rem;
+  }
 
-    .goalsSection {
-        gap: 3.2rem;
-    }
+  /* Total savings spans 2 of 4 cols at desktop (overrides the 1/-1 from tablet) */
+  .summaryGrid > *:first-child {
+    grid-column: span 2;
+  }
 
-    .title {
-        font-size: 5.6rem;
-    }
+  /* Monthly deposits spans all 4 cols (1/-1 already set at tablet, still valid) */
+
+  .goalsSection {
+    gap: 3.2rem;
+  }
+
+  .title {
+    font-size: 5.6rem;
+  }
 }

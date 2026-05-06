@@ -22,7 +22,7 @@ function GoalsList({ goals }: GoalsListProps): React.JSX.Element {
   return (
     <ul className={styles.list}>
       {goals.map((goal) => (
-        <li key={goal.id}>
+        <li key={goal.id} data-variant={getVariant(goal)}>
           <Link href={`/goals/${goal.id}`} className={styles.cardLink}>
             <GoalCard goal={goal} variant={getVariant(goal)} />
           </Link>

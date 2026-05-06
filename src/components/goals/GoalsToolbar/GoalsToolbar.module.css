@@ -13,3 +13,9 @@
   width: 100%;
   min-width: 0;
 }
+
+@media (width >= 768px) {
+  .dropdownWrapper {
+    flex: none;
+  }
+}

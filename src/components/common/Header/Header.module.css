@@ -1,45 +1,46 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.6rem;
-    padding: 1.6rem;
-    border-bottom: 0.1rem solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.08);
 }
 
 .logoLink {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .logo {
-    display: block;
-    width: 4rem;
-    height: auto;
+  display: block;
+  width: 4rem;
+  height: auto;
 }
 
 .actions {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1.2rem;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  flex: 1;
 }
 
-@media (min-width: 48em) {
-    .header {
-        padding-inline: 2.4rem;
-        padding-block: 2rem;
-    }
+@media (width >= 768px) {
+  .header {
+    padding-inline: 3.2rem;
+    padding-block: 2rem;
+  }
 
-    .logo {
-        width: 4.8rem;
-    }
+  .logo {
+    width: auto;
+    height: 4rem;
+  }
 }
 
-@media (min-width: 64em) {
-    .header {
-        padding-inline: 3.2rem;
-    }
+@media (width >= 1440px) {
+  .header {
+    padding-inline: 8rem;
+  }
 }

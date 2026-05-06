@@ -15,7 +15,7 @@
    ================================ */
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 2rem;
   font-weight: 700;
   color: var(--color-neutral-0);
@@ -82,7 +82,12 @@
   background-color: var(--color-orange-400);
   border: 1px solid color-mix(in srgb, var(--color-neutral-0), transparent 70%);
   border-radius: 0.6rem;
-  min-height: 0.6rem;
+}
+
+/* A bar with a $0 total has height: 0% — removing the border prevents
+   it from rendering as a thin 1px horizontal line. */
+.emptyBar {
+  border: none;
 }
 
 /* ================================
@@ -103,13 +108,49 @@
 }
 
 .labelGroup {
-  flex: 1;
   /* Must match .bar min-width so labels stay aligned under their bars */
   min-width: 4.517rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
+}
+
+@media (width >= 768px) {
+  .barsSection {
+    height: 20.2rem;
+    gap: 1.6rem;
+  }
+
+  .bar {
+    min-width: 10rem;
+  }
+
+  .labelsSection {
+    gap: 1.6rem;
+  }
+
+  .labelGroup {
+    min-width: 10rem;
+  }
+}
+
+@media (width >= 1440px) {
+  .barsSection {
+    gap: 2rem;
+  }
+
+  .bar {
+    min-width: 8.5rem;
+  }
+
+  .labelsSection {
+    gap: 2rem;
+  }
+
+  .labelGroup {
+    min-width: 8.5rem;
+  }
 }
 
 .amount {
@@ -129,6 +170,21 @@
   font-weight: 500;
   color: var(--color-neutral-0);
   text-align: center;
+}
+
+@media (width >= 768px) {
+  .amount {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.03rem;
+  }
+
+  .month {
+    font-size: 1.6rem;
+    letter-spacing: -0.03rem;
+    line-height: 150%;
+  }
 }
 
 /* ================================
