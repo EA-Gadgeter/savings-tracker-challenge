@@ -165,7 +165,7 @@ export function CreateGoalModal({
                 role="alert"
               >
                 <img
-                  src="/assets/images/icon-error.svg"
+                  src={`${import.meta.env.BASE_URL}assets/images/icon-error.svg`}
                   alt=""
                   aria-hidden="true"
                 />
@@ -185,7 +185,7 @@ export function CreateGoalModal({
               `}
             >
               <img
-                src="/assets/images/icon-dollar.svg"
+                src={`${import.meta.env.BASE_URL}assets/images/icon-dollar.svg`}
                 alt=""
                 aria-hidden="true"
                 className={styles.inputIcon}
@@ -215,7 +215,7 @@ export function CreateGoalModal({
                 role="alert"
               >
                 <img
-                  src="/assets/images/icon-error.svg"
+                  src={`${import.meta.env.BASE_URL}assets/images/icon-error.svg`}
                   alt=""
                   aria-hidden="true"
                 />
@@ -231,7 +231,7 @@ export function CreateGoalModal({
             </label>
             <div className={styles.inputWrapper}>
               <img
-                src="/assets/images/icon-calendar.svg"
+                src={`${import.meta.env.BASE_URL}assets/images/icon-calendar.svg`}
                 alt=""
                 aria-hidden="true"
                 className={styles.inputIcon}

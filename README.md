@@ -59,8 +59,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/EA-Gadgeter/savings-tracker-challenge](https://github.com/EA-Gadgeter/savings-tracker-challenge)
+- Live Site URL: [https://ea-gadgeter.github.io/savings-tracker-challenge/](https://ea-gadgeter.github.io/savings-tracker-challenge/)
 
 ## My process
 
@@ -71,6 +71,7 @@ Users should be able to:
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
+- [Wouter](https://github.com/molefrog/wouter) - For routing 
 - [React](https://reactjs.org/) - JS library
 - [Zustand](https://zustand-demo.pmnd.rs/) - For state management
 

@@ -40,7 +40,7 @@ function GoalDetailPage(): React.JSX.Element | null {
         <nav className={styles.nav} aria-label="Goal navigation">
           <Link href="/" className={styles.backLink}>
             <img
-              src="/assets/images/icon-chevron-left.svg"
+              src={`${import.meta.env.BASE_URL}assets/images/icon-chevron-left.svg`}
               alt=""
               aria-hidden="true"
               width={20}

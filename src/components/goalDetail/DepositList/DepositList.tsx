@@ -7,9 +7,7 @@ interface DepositListProps {
   deposits: Deposit[];
 }
 
-export function DepositList({
-  deposits,
-}: DepositListProps): React.JSX.Element {
+export function DepositList({ deposits }: DepositListProps): React.JSX.Element {
   // Most recent deposit first
   const sorted = useMemo(
     () =>
@@ -41,7 +39,7 @@ export function DepositList({
             <li key={deposit.id} className={styles.item}>
               <div className={styles.icon} aria-hidden="true">
                 <img
-                  src="/assets/images/icon-arrow-down.svg"
+                  src={`${import.meta.env.BASE_URL}assets/images/icon-arrow-down.svg`}
                   alt=""
                   width={16}
                   height={16}
@@ -49,15 +47,11 @@ export function DepositList({
               </div>
 
               <div className={styles.details}>
-                <p className={styles.note}>
-                  {deposit.note || "Deposit"}
-                </p>
+                <p className={styles.note}>{deposit.note || "Deposit"}</p>
                 <p className={styles.date}>{formatDate(deposit.createdAt)}</p>
               </div>
 
-              <p className={styles.amount}>
-                +{formatCurrency(deposit.amount)}
-              </p>
+              <p className={styles.amount}>+{formatCurrency(deposit.amount)}</p>
             </li>
           ))}
         </ul>
